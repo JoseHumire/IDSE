@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Leaf
+  - Deco
   layers:
   - Default
   - TransparentFX
