@@ -6,7 +6,7 @@ public class ActionsPlayer : MonoBehaviour
 {
     private Rigidbody2D _rb;
     private Animator _animator;
-    private const float Velocity = 2f;
+    private const float Velocity = 4f;
     private bool _changeOrientation = true;
 
     void Start()
@@ -18,7 +18,7 @@ public class ActionsPlayer : MonoBehaviour
     void Update()
     {
         var horizontal = Input.GetAxis("Horizontal");
-       // _rb.velocity = new Vector2(horizontal * Velocity, _rb.velocity.y);
+        // _rb.velocity = new Vector2(horizontal * Velocity, _rb.velocity.y);
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
@@ -36,8 +36,8 @@ public class ActionsPlayer : MonoBehaviour
         {
             Jump();
         }
-        
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             Attack();
         }
@@ -75,14 +75,13 @@ public class ActionsPlayer : MonoBehaviour
     private void Attack()
     {
         _animator.SetTrigger("attackTrigger");
-        //Idle();
     }
 
     private void Defense()
     {
         _animator.SetTrigger("defenseTrigger");
     }
-    
+
     private void Idle()
     {
         _animator.SetTrigger("idleTrigger");
@@ -91,18 +90,16 @@ public class ActionsPlayer : MonoBehaviour
     private void Jump()
     {
         _animator.SetTrigger("jumpTrigger");
-        _rb.AddForce(Vector2.up * 8, ForceMode2D.Impulse);
+        _rb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
     }
 
     private void Win()
     {
         _animator.SetTrigger("winTrigger");
     }
-    
+
     private void Die()
     {
         _animator.SetTrigger("dieTrigger");
     }
-
-
 }

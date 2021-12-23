@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Leaf
   - Deco
+  - Proyectil
+  - Jugador
   layers:
   - Default
   - TransparentFX

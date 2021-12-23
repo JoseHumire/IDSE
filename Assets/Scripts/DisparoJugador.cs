@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DisparoJugador : MonoBehaviour
+{
+    [SerializeField] private Transform controladorDisparo;
+    [SerializeField] private GameObject bala;
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightControl))
+        {
+            Disparar();
+        }
+    }
+
+    private void Disparar()
+    {
+        Instantiate(
+            bala,
+            controladorDisparo.position,
+            controladorDisparo.rotation
+        );
+    }
+}
