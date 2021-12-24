@@ -12,6 +12,8 @@ TagManager:
   - floor
   - Coin
   - Enemy
+  - Post
+  - KnightProjectile
   layers:
   - Default
   - TransparentFX
