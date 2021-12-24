@@ -8,6 +8,7 @@ public class ActionsPlayer : MonoBehaviour
     private Animator _animator;
     private const float Velocity = 4f;
     private bool _changeOrientation = true;
+    public int coins = 0;
 
     void Start()
     {
@@ -101,5 +102,11 @@ public class ActionsPlayer : MonoBehaviour
     private void Die()
     {
         _animator.SetTrigger("dieTrigger");
+    }
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag("Coin")){
+            Destroy(other.gameObject);
+            coins+=3;
+        }
     }
 }
