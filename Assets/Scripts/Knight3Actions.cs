@@ -45,7 +45,7 @@ public class Knight3Actions : MonoBehaviour
         projectileDirection.y = ySpeed;
         newProjectile.GetComponent<Rigidbody2D>().AddForce(projectileDirection, ForceMode2D.Impulse);
 
-        Destroy(newProjectile, 5);
+        Destroy(newProjectile, 3);
     }
     private void GoIdle(){
         animator.SetBool("isIdle", true);

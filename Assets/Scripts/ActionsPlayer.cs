@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ActionsPlayer : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class ActionsPlayer : MonoBehaviour
 
     public Transform tp;
     public Vector2 posicionReinicio;
+    
+    private bool isCoroutineExecuting = false;
 
     void Start()
     {
@@ -114,7 +117,21 @@ public class ActionsPlayer : MonoBehaviour
         slider.value = 0;
     }
 
+    IEnumerator ExecuteAfterTime(float time, Collider2D other)
+    {
+        if (isCoroutineExecuting)
+            yield break;
+ 
+        isCoroutineExecuting = true;
+        other.gameObject.GetComponent<PosterController>().activateCanvas();
+        yield return new WaitForSeconds(time);
 
+        other.gameObject.GetComponent<PosterController>().destroyCanvas();
+        Destroy(other.gameObject);
+        
+ 
+        isCoroutineExecuting = false;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Coin"))
@@ -122,6 +139,15 @@ public class ActionsPlayer : MonoBehaviour
             Destroy(other.gameObject);
             coins += 3;
             contadorCoins.text = "" + coins;
+        }
+        if (other.gameObject.CompareTag("Post"))
+        {
+            var coroutine = ExecuteAfterTime(5.0f, other);
+            StartCoroutine(coroutine);
+        }
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            SceneManager.LoadScene("CreditsScene");
         }
     }
 
@@ -141,6 +167,35 @@ public class ActionsPlayer : MonoBehaviour
 
         if (other.gameObject.CompareTag("Enemy"))
         {
+            slider.value -= 10;
+            if (slider.value <= 0)
+            {
+                Die();
+                Invoke(nameof(Restart), 2f);
+            }
+        }
+        if (other.gameObject.CompareTag("KnightProjectile"))
+        {
+            Destroy(other.gameObject);
+            slider.value -= 5;
+            if (slider.value <= 0)
+            {
+                Die();
+                Invoke(nameof(Restart), 2f);
+            }
+        }
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            slider.value -= 15;
+            if (slider.value <= 0)
+            {
+                Die();
+                Invoke(nameof(Restart), 2f);
+            }
+        }
+        if (other.gameObject.CompareTag("BossProjectile"))
+        {
+            Destroy(other.gameObject);
             slider.value -= 10;
             if (slider.value <= 0)
             {
