@@ -14,10 +14,14 @@ public class ActionsPlayer : MonoBehaviour
     public Slider slider;
     public Text contadorCoins;
 
+    public Transform tp;
+    public Vector2 posicionReinicio;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
+        posicionReinicio = transform.position;
     }
 
     void Update()
@@ -106,7 +110,9 @@ public class ActionsPlayer : MonoBehaviour
     private void Die()
     {
         _animator.SetTrigger("dieTrigger");
+        slider.value = 0;
     }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -118,12 +124,18 @@ public class ActionsPlayer : MonoBehaviour
         }
     }
 
+    private void Restart()
+    {
+        transform.position = posicionReinicio;
+        slider.value = 100;
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("floor"))
         {
-            _animator.SetTrigger("dieTrigger");
-            slider.value = 0;
+            Die();
+            Invoke(nameof(Restart), 2f);
         }
     }
 }
