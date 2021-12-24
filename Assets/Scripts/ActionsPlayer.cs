@@ -19,6 +19,7 @@ public class ActionsPlayer : MonoBehaviour
 
     void Start()
     {
+        slider.value = 100;
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         posicionReinicio = transform.position;
@@ -136,6 +137,16 @@ public class ActionsPlayer : MonoBehaviour
         {
             Die();
             Invoke(nameof(Restart), 2f);
+        }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            slider.value -= 10;
+            if (slider.value <= 0)
+            {
+                Die();
+                Invoke(nameof(Restart), 2f);
+            }
         }
     }
 }

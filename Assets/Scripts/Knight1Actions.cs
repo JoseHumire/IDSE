@@ -14,6 +14,7 @@ public class Knight1Actions : MonoBehaviour
     private Vector2 startingPos;
     public bool walkingBack = false;
     public bool attacking;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,29 +23,44 @@ public class Knight1Actions : MonoBehaviour
         attacking = false;
     }
 
-    private void FixedUpdate() {
-
-        if(transform.position.x >= (startingPos.x + walkLimit) && !walkingBack && !attacking){
-            animator.SetBool("attack", true);        
+    private void FixedUpdate()
+    {
+        if (transform.position.x >= (startingPos.x + walkLimit) && !walkingBack && !attacking)
+        {
+            animator.SetBool("attack", true);
             this.attacking = true;
-        }else if(transform.position.x < startingPos.x && walkingBack && !attacking){
-            animator.SetBool("attack", true);        
+        }
+        else if (transform.position.x < startingPos.x && walkingBack && !attacking)
+        {
+            animator.SetBool("attack", true);
             this.attacking = true;
-        }else{
+        }
+        else
+        {
             Vector2 tempSpeed = rb.velocity;
             tempSpeed.x = speed;
             rb.velocity = tempSpeed;
         }
     }
 
-    private void TurnAround(){
+    private void TurnAround()
+    {
         this.speed = -speed;
         sp.flipX = !sp.flipX;
     }
 
-    private void StopAttacking(){
+    private void StopAttacking()
+    {
         this.attacking = false;
         animator.SetBool("attack", false);
         this.walkingBack = !this.walkingBack;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Jugador"))
+        {
+            animator.SetTrigger("attack");
+        }
     }
 }
