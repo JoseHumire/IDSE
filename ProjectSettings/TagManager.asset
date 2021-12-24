@@ -16,6 +16,7 @@ TagManager:
   - KnightProjectile
   - Boss
   - BossProjectile
+  - ceiling
   layers:
   - Default
   - TransparentFX

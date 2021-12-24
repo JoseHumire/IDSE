@@ -5,8 +5,7 @@ using UnityEngine;
 public class PosterController : MonoBehaviour
 {
     public GameObject canvas;
-
-    public Sprite image;
+    
     // Start is called before the first frame update
     void Start()
     {
