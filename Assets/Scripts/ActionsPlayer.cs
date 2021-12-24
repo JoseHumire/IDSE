@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActionsPlayer : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class ActionsPlayer : MonoBehaviour
     private const float Velocity = 4f;
     private bool _changeOrientation = true;
     public int coins = 0;
+
+    public Slider slider;
+    public Text contadorCoins;
 
     void Start()
     {
@@ -103,10 +107,23 @@ public class ActionsPlayer : MonoBehaviour
     {
         _animator.SetTrigger("dieTrigger");
     }
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.CompareTag("Coin")){
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Coin"))
+        {
             Destroy(other.gameObject);
-            coins+=3;
+            coins += 3;
+            contadorCoins.text = "" + coins;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("floor"))
+        {
+            _animator.SetTrigger("dieTrigger");
+            slider.value = 0;
         }
     }
 }
