@@ -11,6 +11,7 @@ TagManager:
   - Jugador
   - floor
   - Coin
+  - Enemy
   layers:
   - Default
   - TransparentFX
