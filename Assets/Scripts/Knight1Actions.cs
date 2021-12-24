@@ -27,15 +27,13 @@ public class Knight1Actions : MonoBehaviour
         if(transform.position.x >= (startingPos.x + walkLimit) && !walkingBack && !attacking){
             animator.SetBool("attack", true);        
             this.attacking = true;
-            Debug.Log("1");
         }else if(transform.position.x < startingPos.x && walkingBack && !attacking){
             animator.SetBool("attack", true);        
             this.attacking = true;
-            Debug.Log("2");
         }else{
-            Debug.Log("3");
-            Vector2 v = new Vector2(speed, 0);
-            rb.velocity = v;
+            Vector2 tempSpeed = rb.velocity;
+            tempSpeed.x = speed;
+            rb.velocity = tempSpeed;
         }
     }
 
